@@ -1,78 +1,305 @@
-<p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
+# 🧠 SQL & Laravel Query Mastery Roadmap (with Exercises)
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+> **Goal:** Regain the ability to write complex SQL & Laravel queries independently — without relying on AI.
 
-## About Laravel
+This roadmap is designed for **Laravel + MySQL developers** and is based on **real-world reporting problems** (like Loan Demand, Season-wise Reports, Excel exports, Yajra DataTables, etc.).
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+**Duration:** 8–10 weeks  
+**Daily Time:** 60–90 minutes
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 🔑 Golden Rules (Very Important)
 
-## Learning Laravel
+Before writing *any* query, always answer:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+1. **What does ONE row represent?**
+2. **What is the base table?**
+3. **Do I need aggregation?**
+4. **JOIN or subquery?**
+5. **Is there a duplication risk?**
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+➡️ **Always write RAW SQL first**  
+➡️ Then convert to **Laravel Query Builder**
 
-## Laravel Sponsors
+---
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+## 🔰 PHASE 1 – SQL CORE (Week 1–2)
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- [UserInsights](https://userinsights.com)
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
-- [Invoice Ninja](https://www.invoiceninja.com)
-- [iMi digital](https://www.imi-digital.de/)
-- [Earthlink](https://www.earthlink.ro/)
-- [Steadfast Collective](https://steadfastcollective.com/)
-- [We Are The Robots Inc.](https://watr.mx/)
-- [Understand.io](https://www.understand.io/)
-- [Abdel Elrafa](https://abdelelrafa.com)
-- [Hyper Host](https://hyper.host)
-- [Appoly](https://www.appoly.co.uk)
-- [OP.GG](https://op.gg)
+### Week 1: Data Retrieval Basics
 
-## Contributing
+#### Day 1 – SELECT & WHERE
+**Learn**
+- SELECT
+- WHERE
+- AND / OR
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+**Exercises**
+- Get all customers
+- Customers from Dhaka
+- Customers created after `2024-01-01`
 
-## Code of Conduct
+---
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+#### Day 2 – ORDER BY & LIMIT
+**Exercises**
+- Latest 10 bookings
+- Oldest 5 customers
+- Top 10 highest loan bookings
 
-## Security Vulnerabilities
+---
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+#### Day 3 – LIKE, IN, BETWEEN
+**Exercises**
+- Customers whose name starts with `A`
+- Orders between two dates
+- Bookings with status in (`active`, `pending`)
 
-## License
+---
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+#### Day 4 – NULL & COALESCE
+**Exercises**
+- Bookings without delivery
+- Loan amount showing `0` instead of NULL
+
+---
+
+#### Day 5 – Laravel Conversion
+Convert **all previous queries** into:
+
+```php
+DB::table('table_name')->where(...)->get();
+```
+
+---
+
+### Week 2: Aggregation (Most Important)
+
+#### Day 6 – COUNT & SUM
+**Exercises**
+- Total bookings
+- Total loan amount
+- Total loan per season
+
+---
+
+#### Day 7 – GROUP BY
+**Exercises**
+- Total loan per customer
+- Booking count per company
+- Loan per season
+
+---
+
+#### Day 8 – HAVING
+**Exercises**
+- Customers with loan > 1,000,000
+- Seasons with total loan > 10 crore
+
+---
+
+#### Day 9 – AVG, MIN, MAX
+**Exercises**
+- Average loan per booking
+- Maximum loan per season
+
+---
+
+#### Day 10 – Mini Report
+**Build:**
+> Season-wise loan summary  
+(season, total_loan, avg_loan)
+
+---
+
+## 🧩 PHASE 2 – MULTI TABLE THINKING (Week 3–4)
+
+### Week 3: JOIN Fundamentals
+
+#### Day 11 – INNER JOIN
+**Exercises**
+- Orders with customer name
+- Booking with company name
+
+---
+
+#### Day 12 – LEFT JOIN
+**Exercises**
+- Bookings even if no loan exists
+- Customers without orders
+
+---
+
+#### Day 13 – JOIN + Aggregation (Trap Zone)
+**Exercises**
+- Total loan per booking
+- Identify duplicate row problem
+
+---
+
+#### Day 14 – Fix Duplication
+**Exercises**
+- Fix wrong totals caused by JOIN
+- Explain why duplication happens
+
+---
+
+#### Day 15 – Laravel JOIN Practice
+Convert all JOIN queries into Laravel Query Builder.
+
+---
+
+### Week 4: Subqueries (Senior-Level Skill)
+
+#### Day 16 – Aggregate Before JOIN
+**Exercises**
+- Loan sum per booking (subquery)
+- Recovery sum per booking
+
+---
+
+#### Day 17 – LEFT JOIN Subqueries
+**Exercises**
+- Booking + total loan
+- Booking + total recovery
+
+---
+
+#### Day 18 – Multiple Subqueries
+**Exercises**
+- Booking + loan + recovery
+- Outstanding calculation
+
+---
+
+#### Day 19 – Conditional Aggregation
+**Exercises**
+- Seed loan vs fertilizer loan
+- Loan by type in single query
+
+---
+
+#### Day 20 – Mini Report
+> Loan Demand Report (simplified version)
+
+---
+
+## 🏗 PHASE 3 – REPORT DESIGN THINKING (Week 5–6)
+
+### Week 5: Analytical Thinking
+
+#### Day 21 – Define Report Structure
+**Exercises**
+- Define what ONE row means
+- Select correct base table
+
+---
+
+#### Day 22 – Multi-Season Comparison
+**Exercises**
+- Current vs previous season loan
+- Self-join booking table
+
+---
+
+#### Day 23 – Historical Comparison
+**Exercises**
+- Year-over-year growth
+- Season-wise trends
+
+---
+
+#### Day 24 – Calculated Fields
+**Exercises**
+- Outstanding amount
+- Average loan per bag
+
+---
+
+#### Day 25 – Full Report (Raw SQL)
+> Loan Demand Report (raw SQL only)
+
+---
+
+### Week 6: Laravel Production Patterns
+
+#### Day 26 – Yajra DataTables
+- Server-side processing
+- Computed columns
+
+---
+
+#### Day 27 – Excel Export
+- Same query as DataTable
+- No duplication
+- Correct totals
+
+---
+
+#### Day 28 – Totals & Footer Logic
+**Exercises**
+- SQL totals
+- Excel totals
+
+---
+
+#### Day 29 – Refactoring
+**Exercises**
+- Extract reusable query logic
+- Share logic between DataTable & Excel
+
+---
+
+#### Day 30 – Final Challenge
+Rebuild a complete report **from scratch**
+
+❌ No AI  
+✔ Pure thinking
+
+---
+
+## ⚙️ PHASE 4 – PERFORMANCE & MASTERY (Week 7–8)
+
+### Week 7: Performance Optimization
+- Indexing strategy
+- `EXPLAIN` query plan
+- Query optimization
+
+### Week 8: Advanced SQL
+- CASE WHEN
+- Window functions
+- Financial reporting patterns
+
+---
+
+## 🧪 Daily Practice Rule
+
+Before executing a query, write this as comments:
+
+```sql
+-- One row represents:
+-- Base table:
+-- Aggregation needed:
+-- Join or subquery:
+-- Duplication risk:
+```
+
+---
+
+## 🚀 How to Use This Repo
+
+- Practice **one day at a time**
+- Save your SQL solutions
+- Convert them to Laravel Query Builder
+- Track improvements weekly
+
+---
+
+## 💡 Final Advice
+
+> "SQL skill is not memorization — it is structured thinking."
+
+If you can **explain your query**, you truly understand it.
+
+Happy querying 🚀
+
